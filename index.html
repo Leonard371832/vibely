@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100d1e">
+  <title>Vibely — Find your people. Feel the moment.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" data-page-link="home" aria-label="Vibely home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>vibely<span class="brand-dot">.</span></span>
+      </a>
+
+      <div class="sidebar-label">YOUR SPACE</div>
+      <nav class="main-nav">
+        <button class="nav-link active" data-page-link="home"><span class="nav-icon">⌂</span> Home</button>
+        <button class="nav-link" data-page-link="discover"><span class="nav-icon">⌕</span> Discover people</button>
+        <button class="nav-link" data-page-link="rooms"><span class="nav-icon">◉</span> Watch rooms <span class="nav-count">6</span></button>
+        <button class="nav-link" data-page-link="stories"><span class="nav-icon">◌</span> Stories & moments</button>
+        <button class="nav-link" data-page-link="connections"><span class="nav-icon">♡</span> My circle</button>
+      </nav>
+
+      <div class="sidebar-label side-label-spaced">YOUR INTERESTS</div>
+      <div class="interest-pills">
+        <button class="interest-pill" data-interest="Football"><span>⚽</span> Football</button>
+        <button class="interest-pill" data-interest="Music"><span>♫</span> Music</button>
+        <button class="interest-pill" data-interest="Movies"><span>▣</span> Movies</button>
+        <button class="interest-pill" data-interest="Gaming"><span>⌘</span> Gaming</button>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="mini-profile">
+          <img id="sidebar-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Your profile">
+          <div class="mini-profile-copy"><strong id="sidebar-name">Your profile</strong><span>Make your presence felt</span></div>
+          <button class="icon-button small" id="edit-profile-shortcut" aria-label="Edit profile">↗</button>
+        </div>
+        <div class="sidebar-footnote">A little less scrolling.<br><strong>A lot more connection.</strong></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark"><span></span><span></span><span></span></span> vibely<span class="brand-dot">.</span></div>
+        <div class="breadcrumb"><span>Explore</span><span class="crumb-slash">/</span><strong id="current-section">Your world</strong></div>
+        <div class="topbar-actions">
+          <label class="top-search"><span>⌕</span><input id="global-search" type="search" placeholder="Search rooms, people, vibes..." aria-label="Search rooms and people"></label>
+          <button class="icon-button notification-button" id="notifications-button" aria-label="Notifications">♧<i></i></button>
+          <button class="avatar-button" id="open-my-profile" aria-label="Open your profile"><img id="my-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt=""></button>
+        </div>
+      </header>
+
+      <div class="page-view active" id="page-home">
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow"><span class="live-dot"></span> YOUR GLOBAL LIVING ROOM</p>
+            <h1>Good vibes find<br>their <span class="gradient-text">people.</span></h1>
+            <p class="welcome-copy">Big moments hit different when you share them.<br>Find your people, join the moment, make it yours.</p>
+            <div class="hero-actions">
+              <button class="button button-primary" data-page-link="rooms">Explore watch rooms <span>↗</span></button>
+              <button class="button button-quiet" data-page-link="discover">Meet your people</button>
+            </div>
+            <div class="social-proof">
+              <div class="avatar-stack">
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=80&q=80" alt="">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80" alt="">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=80&q=80" alt="">
+                <span>+</span>
+              </div>
+              <p><strong>People everywhere.</strong><br><span>Different places, shared moments.</span></p>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-photo-main">
+              <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=85" alt="Football stadium full of fans">
+              <div class="photo-vignette"></div>
+              <div class="hero-photo-tag"><span class="live-dot"></span> THE WORLD IS WATCHING</div>
+              <div class="hero-photo-caption">
+                <span class="caption-kicker">TONIGHT'S BIG MOMENT</span>
+                <strong>One game. A million reactions.</strong>
+                <span>Football fans · 18 countries</span>
+              </div>
+            </div>
+            <div class="floating-note note-top"><span class="note-emoji">🌍</span><div><strong>Different time zones</strong><span>Same energy.</span></div></div>
+            <div class="floating-note note-bottom">
+              <div class="pulse-avatar"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80" alt=""></div>
+              <div><strong>Amina just joined</strong><span>Nairobi, Kenya · 2m ago</span></div>
+              <span class="note-heart">♥</span>
+            </div>
+            <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+          </div>
+        </section>
+
+        <section class="story-section">
+          <div class="section-heading">
+            <div><p class="eyebrow">LIFE BETWEEN THE MOMENTS</p><h2>Stories from your world <span class="heading-spark">✳</span></h2></div>
+            <button class="text-link" data-page-link="stories">See all stories <span>→</span></button>
+          </div>
+          <div class="story-rail" id="home-stories">
+            <button class="story-tile create-story-tile" id="create-story-shortcut"><span class="create-story-icon">＋</span><strong>Your moment</strong><span>Share a little life</span></button>
+          </div>
+        </section>
+
+        <section class="rooms-section">
+          <div class="section-heading">
+            <div><p class="eyebrow">FIND YOUR CROWD</p><h2>Rooms worth showing up for</h2><p class="section-subtitle">Join the conversation. Stay for the people.</p></div>
+            <button class="text-link" data-page-link="rooms">Explore all rooms <span>→</span></button>
+          </div>
+          <div class="filter-row" id="home-filters">
+            <button class="filter-chip selected" data-category="All">For you</button>
+            <button class="filter-chip" data-category="Football">⚽ Football</button>
+            <button class="filter-chip" data-category="Music">♫ Music</button>
+            <button class="filter-chip" data-category="Movies">▣ Movies</button>
+            <button class="filter-chip" data-category="Gaming">⌘ Gaming</button>
+            <button class="filter-chip" data-category="Culture">✳ Culture</button>
+          </div>
+          <div class="room-grid" id="home-room-grid"></div>
+        </section>
+
+        <section class="people-section">
+          <div class="section-heading">
+            <div><p class="eyebrow">YOUR NEXT FAVOURITE PERSON</p><h2>People on your wavelength</h2></div>
+            <button class="text-link" data-page-link="discover">Find your people <span>→</span></button>
+          </div>
+          <div class="people-grid" id="home-people-grid"></div>
+        </section>
+        <footer class="page-footer"><span>© 2026 Vibely</span><span>Made for moments that bring us closer <span class="footer-heart">♥</span></span><span>Prototype · Demo profiles</span></footer>
+      </div>
+
+      <div class="page-view" id="page-rooms">
+        <section class="page-intro"><p class="eyebrow">YOUR GLOBAL LIVING ROOM</p><h1>Find your <span class="gradient-text">crowd.</span></h1><p>From match-day chaos to late-night movie debates, there's a room for your kind of energy.</p></section>
+        <div class="filter-row" id="rooms-filters">
+          <button class="filter-chip selected" data-category="All">All rooms</button>
+          <button class="filter-chip" data-category="Football">⚽ Football</button>
+          <button class="filter-chip" data-category="Music">♫ Music</button>
+          <button class="filter-chip" data-category="Movies">▣ Movies</button>
+          <button class="filter-chip" data-category="Gaming">⌘ Gaming</button>
+          <button class="filter-chip" data-category="Culture">✳ Culture</button>
+        </div>
+        <div class="room-grid room-grid-page" id="all-room-grid"></div>
+      </div>
+
+      <div class="page-view" id="page-discover">
+        <section class="page-intro"><p class="eyebrow">PEOPLE BEFORE PROFILES</p><h1>Meet your <span class="gradient-text">kind of people.</span></h1><p>Find people by interests, humour, curiosity and the things you love doing.</p></section>
+        <div class="discover-toolbar"><label class="search-field"><span>⌕</span><input id="people-search" type="search" placeholder="Try music, football, filmmaking..."></label><span class="demo-note">Demo community · fictional profiles</span></div>
+        <div class="people-grid people-grid-page" id="all-people-grid"></div>
+      </div>
+
+      <div class="page-view" id="page-stories">
+        <section class="page-intro"><p class="eyebrow">LITTLE WINDOWS INTO REAL LIFE</p><h1>Moments make <span class="gradient-text">connections.</span></h1><p>See what people are up to, what they're loving, and what they'd like to share with the room.</p><button class="button button-primary" id="create-story-page">＋ Share a moment</button></section>
+        <div class="story-page-grid" id="all-stories-grid"></div>
+      </div>
+
+      <div class="page-view" id="page-connections">
+        <section class="page-intro"><p class="eyebrow">YOUR PEOPLE, YOUR PACE</p><h1>Your <span class="gradient-text">circle.</span></h1><p>People you choose to keep in your orbit. Start with a shared moment; let the connection grow.</p></section>
+        <div class="people-grid people-grid-page" id="connections-grid"></div>
+        <div class="empty-state hidden" id="connections-empty"><span>♡</span><h3>Your circle starts with a hello.</h3><p>Explore people who share your interests and add someone to your circle.</p><button class="button button-primary" data-page-link="discover">Discover people</button></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="room-modal">
+    <section class="modal room-modal" role="dialog" aria-modal="true" aria-labelledby="modal-room-title">
+      <button class="modal-close" data-close-modal aria-label="Close room">×</button>
+      <div class="room-modal-hero" id="modal-room-hero">
+        <div class="room-modal-overlay"></div>
+        <div class="room-modal-title">
+          <span class="room-live-pill"><i></i> OPEN ROOM · DEMO</span>
+          <h2 id="modal-room-title">Global Football Lounge</h2>
+          <p id="modal-room-description"></p>
+          <div class="modal-room-meta"><span id="modal-room-category"></span><span id="modal-room-time"></span><span id="modal-room-count"></span></div>
+        </div>
+      </div>
+      <div class="room-modal-body">
+        <div class="room-main-column">
+          <div class="modal-section-title"><div><p class="eyebrow">THE PEOPLE MAKE THE ROOM</p><h3>Who's in here <span id="modal-people-count">(0)</span></h3></div><span class="tiny-online"><i></i> Here now</span></div>
+          <p class="room-explainer">Before you jump in, get a feel for the people sharing this moment. Open a profile to learn what they're about.</p>
+          <div class="room-member-grid" id="modal-room-members"></div>
+          <div class="room-chat-box">
+            <div class="chat-header"><div><strong>Room chat</strong><span>Lightweight local demo chat</span></div><span class="chat-lock">◉ Friendly space</span></div>
+            <div class="chat-messages" id="modal-chat-messages">
+              <div class="chat-message"><span class="chat-avatar">V</span><div><strong>Vibely guide <small>just now</small></strong><p>Welcome in! Say hi and tell everyone where you're tuning in from 👋</p></div></div>
+            </div>
+            <form class="chat-form" id="room-chat-form"><input id="room-chat-input" maxlength="240" placeholder="Say something kind..." autocomplete="off" required><button class="button button-primary" type="submit">Send ↗</button></form>
+          </div>
+        </div>
+        <aside class="room-side-column">
+          <div class="side-card"><p class="eyebrow">ROOM MOMENTS</p><h3>What people are sharing</h3><div id="modal-room-stories" class="modal-room-stories"></div></div>
+          <div class="side-card invite-side-card"><span class="invite-icon">↗</span><h3>Bring your people</h3><p>Great moments get better with friends. Share this demo room.</p><button class="button button-outline full-width" id="copy-room-invite">Copy room invite</button><p class="tiny-note" id="invite-status"></p></div>
+          <p class="prototype-disclaimer">This is a frontend prototype. Members, chat and room activity are sample content stored locally in this browser.</p>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="profile-modal">
+    <section class="modal profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-name">
+      <button class="modal-close" data-close-modal aria-label="Close profile">×</button>
+      <div class="profile-cover"></div>
+      <div class="profile-modal-content">
+        <img class="profile-large-avatar" id="profile-modal-avatar" src="" alt="">
+        <div class="profile-name-row"><div><p class="eyebrow" id="profile-modal-tag">VIBELY MEMBER</p><h2 id="profile-modal-name">Member name</h2><p class="profile-location" id="profile-modal-location"></p></div><button class="button button-primary" id="profile-connect-button">＋ Add to circle</button></div>
+        <p class="profile-bio" id="profile-modal-bio"></p>
+        <div class="profile-interests" id="profile-modal-interests"></div>
+        <div class="profile-currently"><span class="currently-icon">✦</span><div><strong>Currently into</strong><p id="profile-modal-currently"></p></div></div>
+        <div class="profile-modal-actions"><button class="button button-outline" id="profile-message-button">Say hello</button><button class="button button-quiet" data-close-modal>Back to exploring</button></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="story-modal">
+    <section class="modal story-modal" role="dialog" aria-modal="true" aria-labelledby="story-modal-title">
+      <button class="modal-close light-close" data-close-modal aria-label="Close story">×</button>
+      <div id="story-modal-content"></div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="edit-modal">
+    <section class="modal edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+      <button class="modal-close" data-close-modal aria-label="Close edit profile">×</button>
+      <div class="edit-modal-inner">
+        <p class="eyebrow">MAKE IT YOURS</p><h2 id="edit-modal-title">Your Vibely profile</h2><p class="edit-intro">This demo profile is saved in this browser.</p>
+        <form id="profile-form">
+          <label>Your name<input id="profile-name-input" maxlength="36" required value="Your name"></label>
+          <label>Your city<input id="profile-city-input" maxlength="48" value="Nairobi, Kenya"></label>
+          <label>Short intro<textarea id="profile-bio-input" maxlength="180" rows="3" placeholder="A little about you..."></textarea></label>
+          <label>Interests <span class="field-hint">Separate with commas</span><input id="profile-interests-input" maxlength="140" value="Music, Football, Movies"></label>
+          <label>Currently into<input id="profile-currently-input" maxlength="100" value="Finding good people and better stories"></label>
+          <button class="button button-primary full-width" type="submit">Save my profile</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="create-story-modal">
+    <section class="modal edit-modal" role="dialog" aria-modal="true" aria-labelledby="create-story-title">
+      <button class="modal-close" data-close-modal aria-label="Close create story">×</button>
+      <div class="edit-modal-inner">
+        <p class="eyebrow">A MOMENT FROM YOU</p><h2 id="create-story-title">Share a story</h2><p class="edit-intro">Add a caption and an optional photo. Demo stories are saved in this browser.</p>
+        <form id="story-form">
+          <label>What's happening?<textarea id="story-caption-input" maxlength="180" rows="3" placeholder="Currently vibing with..." required></textarea></label>
+          <label>Add a photo (optional)<input id="story-image-input" type="file" accept="image/*"></label>
+          <label>Who can see it?<select id="story-privacy-input"><option value="everyone">Everyone on Vibely (demo)</option><option value="circle">My circle (demo)</option></select></label>
+          <p class="field-hint">Image files are previewed for this session only; captions are saved locally.</p>
+          <button class="button button-primary full-width" type="submit">Post my moment ✦</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
