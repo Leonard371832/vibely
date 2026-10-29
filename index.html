@@ -65,6 +65,7 @@
             <p class="welcome-copy">Big moments hit different when you share them.<br>Find your people, join the moment, make it yours.</p>
             <div class="hero-actions">
               <button class="button button-primary" data-page-link="rooms">Explore watch rooms <span>↗</span></button>
+              <button class="button button-primary" id="create-room-button">Create a room</button>
               <button class="button button-quiet" data-page-link="discover">Meet your people</button>
             </div>
             <div class="social-proof">
@@ -255,6 +256,82 @@
       </div>
     </section>
   </div>
+
+<!-- Create Room Modal -->
+<div class="modal-backdrop hidden" id="create-room-modal">
+  <section
+    class="modal edit-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="create-room-title"
+  >
+    <button
+      class="modal-close"
+      data-close-modal
+      aria-label="Close create room form"
+    >×</button>
+
+    <div class="edit-modal-inner">
+      <p class="eyebrow">BRING YOUR PEOPLE TOGETHER</p>
+      <h2 id="create-room-title">Create a watch room</h2>
+      <p class="edit-intro">
+        Choose a topic, set the vibe, and invite people into your space.
+      </p>
+
+      <form id="create-room-form">
+        <label>
+          Room name
+          <input
+            id="new-room-name"
+            type="text"
+            maxlength="60"
+            placeholder="e.g. Late Night Football Talk"
+            required
+          >
+        </label>
+
+        <label>
+          Category
+          <select id="new-room-category" required>
+            <option value="Football">⚽ Football</option>
+            <option value="Music">♫ Music</option>
+            <option value="Movies">▣ Movies</option>
+            <option value="Gaming">⌘ Gaming</option>
+            <option value="Culture">✳ Culture</option>
+          </select>
+        </label>
+
+        <label>
+          Description
+          <textarea
+            id="new-room-description"
+            maxlength="240"
+            rows="3"
+            placeholder="What will people talk about or watch together?"
+            required
+          ></textarea>
+        </label>
+
+        <label>
+          Room access
+          <select id="new-room-access" required>
+            <option value="public">Public — visible in room discovery</option>
+            <option value="private">Private — marked as invite-only</option>
+          </select>
+        </label>
+
+        <p class="field-hint">
+          Private access is a prototype setting. Without a backend,
+          it cannot prevent other users from accessing the room.
+        </p>
+
+        <button class="button button-primary full-width" type="submit">
+          Create my room ✦
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>

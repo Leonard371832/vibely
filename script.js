@@ -236,6 +236,8 @@ const defaultProfile = {
 let myProfile = readStore("vibely-profile", defaultProfile);
 let connections = readStore("vibely-connections", []);
 let customStories = readStore("vibely-stories", []);
+let customRooms = readStore("vibely-custom-rooms", []);
+let joinedRoomIds = readStore("vibely-joined-rooms", []);
 
 let activeRoomId = null;
 let activeProfileId = null;
@@ -284,6 +286,15 @@ function personById(id) {
 // Combine demo stories with stories created by the user.
 function allStories() {
   return [...customStories, ...stories];
+}
+// Combine the original demo rooms with rooms created by the user.
+function allRooms() {
+  return [...customRooms, ...events];
+}
+
+// Find a room by ID, whether it is a demo room or a custom room.
+function getRoomById(id) {
+  return allRooms().find(room => room.id === id) || null;
 }
 
 // Find the person who created a story.
@@ -344,24 +355,53 @@ function avatarStack(ids) {
   }).join("")}${ids.length > 3 ? `<span>+${ids.length - 3}</span>` : ""}</span>`;
 }
 
-// Build the HTML for one watch-room card.
-function roomCard(event) {
+// Build a room card for both demo rooms and user-created rooms.
+function roomCard(room) {
+  const isOwner = room.ownerId === "me";
+  const isPrivate = room.access === "private";
+  const isJoined = joinedRoomIds.includes(room.id);
+
   return `
     <article class="room-card">
       <div class="room-cover">
-        <img src="${event.image}" alt="${escapeHTML(event.title)}" loading="lazy">
-        <span class="room-category-pill">${categoryIcon(event.category)} ${escapeHTML(event.category)}</span>
-        <span class="room-status-pill"><i></i> OPEN TO JOIN</span>
+        <img
+          src="${room.image || image("photo-1522778119026-d647f0596c20", 1000)}"
+          alt="${escapeHTML(room.title)}"
+          loading="lazy"
+        >
+
+        <span class="room-category-pill">
+          ${categoryIcon(room.category)}
+          ${escapeHTML(room.category)}
+        </span>
+
+        <span class="room-status-pill">
+          <i></i>
+          ${isPrivate ? "INVITE ONLY · DEMO" : "OPEN TO JOIN"}
+        </span>
       </div>
+
       <div class="room-card-content">
-        <h3>${escapeHTML(event.title)}</h3>
-        <p>${escapeHTML(event.description)}</p>
+        <h3>${escapeHTML(room.title)}</h3>
+        <p>${escapeHTML(room.description)}</p>
+
+        <span class="room-access-badge">
+          ${isPrivate ? "🔒 Private room" : "🌍 Public room"}
+          ${isOwner ? " · Your room" : ""}
+        </span>
+
         <div class="room-card-footer">
           <div class="room-attendance">
-            ${avatarStack(event.people)}
-            <span>${event.members.toLocaleString()} vibing</span>
+            ${avatarStack(room.people || [])}
+            <span>${(room.members || 1).toLocaleString()} vibing</span>
           </div>
-          <button class="join-room-button" data-join-room="${event.id}">Enter room ↗</button>
+
+          <button
+            class="join-room-button"
+            data-join-room="${escapeHTML(room.id)}"
+          >
+            ${isJoined ? "Enter room ↗" : "Join room ↗"}
+          </button>
         </div>
       </div>
     </article>`;
@@ -378,14 +418,22 @@ function categoryIcon(category) {
   })[category] || "✦";
 }
 
-// Display watch rooms, applying the currently selected category filter.
+// Display demo rooms and custom rooms using the selected category filter.
 function renderRooms() {
-  const filtered = events.filter(event =>
-    currentCategory === "All" || event.category === currentCategory
-  );
+  const filtered = allRooms().filter(room => {
+    const matchesCategory =
+      currentCategory === "All" ||
+      room.category === currentCategory;
 
-  $("#home-room-grid").innerHTML = filtered.slice(0, 3).map(roomCard).join("");
-  $("#all-room-grid").innerHTML = filtered.map(roomCard).join("");
+    // Closed rooms are not shown in discovery.
+    return matchesCategory && !room.closed;
+  });
+
+  $("#home-room-grid").innerHTML =
+    filtered.slice(0, 3).map(roomCard).join("");
+
+  $("#all-room-grid").innerHTML =
+    filtered.map(roomCard).join("");
 
   syncFilterButtons();
 }
@@ -608,37 +656,57 @@ function openStory(id) {
   $("#story-modal").classList.remove("hidden");
 }
 
-// Open a watch room and populate its members, stories, and chat.
+// Open a demo room or a room created by the current user.
 function openRoom(id) {
-  const event = events.find(item => item.id === id);
+  const room = getRoomById(id);
 
-  if (!event) return;
+  if (!room || room.closed) {
+    showToast("This room is no longer available.");
+    renderRooms();
+    return;
+  }
 
   activeRoomId = id;
 
-  $("#modal-room-title").textContent = event.title;
-  $("#modal-room-description").textContent = event.description;
+  // Record that the current user joined this room.
+  if (!joinedRoomIds.includes(id)) {
+    joinedRoomIds.push(id);
+    writeStore("vibely-joined-rooms", joinedRoomIds);
+  }
+
+  $("#modal-room-title").textContent = room.title;
+  $("#modal-room-description").textContent = room.description;
   $("#modal-room-category").textContent =
-    `${categoryIcon(event.category)} ${event.category}`;
-  $("#modal-room-time").textContent = `◷ ${event.time}`;
+    `${categoryIcon(room.category)} ${room.category}`;
+
+  $("#modal-room-time").textContent =
+    room.time || "◷ Open room · Created by you";
+
   $("#modal-room-count").textContent =
-    `◎ ${event.members.toLocaleString()} members`;
+    `◎ ${(room.members || 1).toLocaleString()} members`;
 
-  $("#modal-room-hero").style.backgroundImage = `url("${event.image}")`;
+  $("#modal-room-hero").style.backgroundImage =
+    `url("${room.image || image("photo-1522778119026-d647f0596c20", 1000)}")`;
 
-  const members = event.people.map(personById).filter(Boolean);
+  const members = (room.people || [])
+    .map(personById)
+    .filter(Boolean);
 
   $("#modal-people-count").textContent = `(${members.length})`;
 
-  $("#modal-room-members").innerHTML = members.map(person => `
-    <button class="room-member" data-open-profile="${person.id}">
-      <img src="${person.avatar}" alt="">
-      <span>
-        <strong>${escapeHTML(person.name)}</strong>
-        <small>${escapeHTML(person.city)}</small>
-      </span>
-    </button>
-  `).join("");
+  $("#modal-room-members").innerHTML = members.length
+    ? members.map(person => `
+        <button class="room-member" data-open-profile="${person.id}">
+          <img src="${person.avatar}" alt="">
+          <span>
+            <strong>${escapeHTML(person.name)}</strong>
+            <small>${escapeHTML(person.city)}</small>
+          </span>
+        </button>
+      `).join("")
+    : `<p class="room-explainer">
+         You're the first member of this room. Invite your people!
+       </p>`;
 
   const roomStories = allStories().filter(story =>
     story.roomIds?.includes(id)
@@ -657,16 +725,41 @@ function openRoom(id) {
             </span>
           </button>`;
       }).join("")
-    : `<p class="room-explainer">No moments shared in this room yet. Be the first to share one.</p>`;
+    : `<p class="room-explainer">
+         No moments shared in this room yet.
+       </p>`;
 
   $("#modal-chat-messages").innerHTML = `
     <div class="chat-message">
       <span class="chat-avatar">V</span>
       <div>
         <strong>Vibely guide <small>just now</small></strong>
-        <p>Welcome to ${escapeHTML(event.title)}! Say hi and tell everyone where you're tuning in from 👋</p>
+        <p>
+          Welcome to ${escapeHTML(room.title)}!
+          Say hi and tell everyone where you're tuning in from 👋
+        </p>
       </div>
     </div>`;
+
+  // Show the close-room control only when the current user owns the room.
+  let ownerControls = $("#room-owner-controls");
+
+  if (!ownerControls) {
+    ownerControls = document.createElement("div");
+    ownerControls.id = "room-owner-controls";
+    ownerControls.className = "room-owner-controls";
+
+    $("#modal-room-title").parentElement.appendChild(ownerControls);
+  }
+
+  ownerControls.innerHTML = room.ownerId === "me"
+    ? `<button
+         type="button"
+         class="room-close-button"
+         id="close-created-room"
+         data-room-id="${escapeHTML(room.id)}"
+       >Close my room</button>`
+    : "";
 
   $("#invite-status").textContent = "";
   $("#room-modal").classList.remove("hidden");
@@ -1024,12 +1117,103 @@ $("#room-chat-form").addEventListener("submit", event => {
   input.value = "";
 });
 
+/* ==========================================
+   CREATE, SAVE AND CLOSE ROOMS
+========================================== */
+
+// Open the create-room form.
+$("#create-room-button").addEventListener("click", () => {
+  $("#create-room-form").reset();
+  $("#create-room-modal").classList.remove("hidden");
+});
+
+// Save a new room when the form is submitted.
+$("#create-room-form").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = $("#new-room-name").value.trim();
+  const category = $("#new-room-category").value;
+  const description = $("#new-room-description").value.trim();
+  const access = $("#new-room-access").value;
+
+  if (!title || !description) {
+    showToast("Please enter a room name and description.");
+    return;
+  }
+
+  const newRoom = {
+    id: `custom-${Date.now()}`,
+    title,
+    category,
+    description,
+    access,
+    ownerId: "me",
+    members: 1,
+    people: [],
+    image: image("photo-1522778119026-d647f0596c20", 1000),
+    label: "YOUR ROOM",
+    time: "Open room · Created just now",
+    storyIds: [],
+    closed: false
+  };
+
+  // Put the newest room first and save it in this browser.
+  customRooms.unshift(newRoom);
+  writeStore("vibely-custom-rooms", customRooms);
+
+  // Show the room on the dashboard and the full rooms page.
+  currentCategory = "All";
+  renderRooms();
+
+  closeModals();
+  showPage("rooms");
+
+  showToast(
+    access === "private"
+      ? "Private demo room created and saved!"
+      : "Your new room is ready!"
+  );
+
+  // Open the new room immediately.
+  openRoom(newRoom.id);
+});
+
+// Close a room created by the current user.
+// Closing hides the room from discovery but preserves its saved data.
+document.addEventListener("click", event => {
+  const closeButton = event.target.closest("#close-created-room");
+
+  if (!closeButton) return;
+
+  const roomId = closeButton.dataset.roomId;
+  const room = customRooms.find(item => item.id === roomId);
+
+  if (!room || room.ownerId !== "me") {
+    showToast("You can only close rooms you created.");
+    return;
+  }
+
+  const confirmed = window.confirm(
+    `Close "${room.title}"? It will disappear from room discovery.`
+  );
+
+  if (!confirmed) return;
+
+  room.closed = true;
+
+  writeStore("vibely-custom-rooms", customRooms);
+
+  closeModals();
+  renderRooms();
+
+  showToast("Your room has been closed.");
+});
+
+
 // Draw the interface when the page is ready.
 document.addEventListener("DOMContentLoaded", renderAll);
 
 // Also render immediately if the script loads after the HTML.
 renderAll();
-
-
 
 

@@ -2570,3 +2570,107 @@ h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+   CREATE ROOM FEATURE  */
+
+#create-room-button {
+  margin-top: 12px;
+}
+
+#create-room-modal .edit-modal-inner {
+  max-width: 540px;
+}
+
+#create-room-form {
+  display: grid;
+  gap: 16px;
+}
+
+#create-room-form label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+#create-room-form input,
+#create-room-form select,
+#create-room-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid rgba(160, 140, 190, 0.3);
+  border-radius: 12px;
+  background: rgba(30, 24, 45, 0.85);
+  color: inherit;
+  font: inherit;
+}
+
+#create-room-form textarea {
+  resize: vertical;
+}
+
+#create-room-form input:focus,
+#create-room-form select:focus,
+#create-room-form textarea:focus {
+  outline: 2px solid #b56cff;
+  outline-offset: 2px;
+}
+
+#create-room-form select option {
+  background: #20172f;
+  color: #fff;
+}
+
+.room-access-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(181, 108, 255, 0.15);
+  color: #d9b4ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.room-owner-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.room-close-button {
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 110, 130, 0.45);
+  border-radius: 10px;
+  background: rgba(255, 75, 100, 0.12);
+  color: #ff9baa;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.room-close-button:hover {
+  background: rgba(255, 75, 100, 0.22);
+}
+
+.room-closed-label {
+  display: inline-block;
+  margin-top: 8px;
+  color: #ff9baa;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  #create-room-button {
+    width: 100%;
+  }
+
+  #create-room-modal .edit-modal-inner {
+    padding: 22px;
+  }
+}
